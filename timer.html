@@ -51,74 +51,86 @@
     <!-- Audio element for the beep sound -->
     <audio id="beepSound" src="beep.mp3"></audio>
 
-    <script>
-        let timerInterval;
-        let currentPhase = 'warmup';
-        let isPaused = false;
+<script>
+    let timerInterval;
+    let currentPhase = 'warmup';
+    let isPaused = false;
 
-        const phases = {
-            warmup: { duration: 0, next: 'highIntensity', color: '#FFCCCC' }, // Light red background for warmup
-            highIntensity: { duration: 0, next: 'rest', color: '#DFF2BF' },   // Light green background for high intensity
-            rest: { duration: 0, next: 'highIntensity', color: '#FFFACD' }   // Light yellow background for rest
-        };
+    const originalDurations = {
+        warmup: 0,
+        highIntensity: 0,
+        rest: 0
+    };
 
-        function parseTime(input) {
-            const num = parseInt(input.slice(0, -1), 10);
-            const unit = input.slice(-1);
-            return unit === 's' ? num : num * 60;
-        }
+    const phases = {
+        warmup: { duration: 0, next: 'highIntensity', color: '#FFCCCC' }, // Light red background for warmup
+        highIntensity: { duration: 0, next: 'rest', color: '#DFF2BF' },   // Light green background for high intensity
+        rest: { duration: 0, next: 'highIntensity', color: '#FFFACD' }   // Light yellow background for rest
+    };
 
-        function setupTimer() {
-            const urlParams = new URLSearchParams(window.location.search);
-            phases.warmup.duration = parseTime(urlParams.get('warmup') || '0s');
-            phases.highIntensity.duration = parseTime(urlParams.get('highIntensity') || '0s');
-            phases.rest.duration = parseTime(urlParams.get('rest') || '0s');
+    function parseTime(input) {
+        const num = parseInt(input.slice(0, -1), 10);
+        const unit = input.slice(-1);
+        return unit === 's' ? num : num * 60;
+    }
 
-            currentPhase = phases.warmup.duration > 0 ? 'warmup' : 'highIntensity';
+    function setupTimer() {
+        const urlParams = new URLSearchParams(window.location.search);
+        originalDurations.warmup = parseTime(urlParams.get('warmup') || '0s');
+        originalDurations.highIntensity = parseTime(urlParams.get('highIntensity') || '0s');
+        originalDurations.rest = parseTime(urlParams.get('rest') || '0s');
+
+        phases.warmup.duration = originalDurations.warmup;
+        phases.highIntensity.duration = originalDurations.highIntensity;
+        phases.rest.duration = originalDurations.rest;
+
+        currentPhase = phases.warmup.duration > 0 ? 'warmup' : 'highIntensity';
+        updateTimerDisplay();
+        updateBackgroundColor();
+        timerInterval = setInterval(timerTick, 1000);
+    }
+
+    function timerTick() {
+        if (!isPaused && phases[currentPhase].duration > 0) {
+            phases[currentPhase].duration--;
             updateTimerDisplay();
-            updateBackgroundColor();
-            timerInterval = setInterval(timerTick, 1000);
+        } else if (!isPaused) {
+            nextPhase();
         }
+    }
 
-        function timerTick() {
-            if (!isPaused && phases[currentPhase].duration > 0) {
-                phases[currentPhase].duration--;
-                updateTimerDisplay();
-            } else if (!isPaused) {
-                nextPhase();
-            }
-        }
+    function updateTimerDisplay() {
+        const minutes = parseInt(phases[currentPhase].duration / 60, 10);
+        const seconds = parseInt(phases[currentPhase].duration % 60, 10);
+        const formattedTime = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        document.getElementById('timer').textContent = formattedTime;
+    }
 
-        function updateTimerDisplay() {
-            const minutes = parseInt(phases[currentPhase].duration / 60, 10);
-            const seconds = parseInt(phases[currentPhase].duration % 60, 10);
-            const formattedTime = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-            document.getElementById('timer').textContent = formattedTime;
-        }
+    function pauseResumeTimer() {
+        isPaused = !isPaused;
+        document.getElementById('pauseButton').textContent = isPaused ? 'Resume' : 'Pause';
+    }
 
-        function pauseResumeTimer() {
-            isPaused = !isPaused;
-            document.getElementById('pauseButton').textContent = isPaused ? 'Resume' : 'Pause';
-        }
+    function nextPhase() {
+        playBeep();
+        currentPhase = phases[currentPhase].next;
+        phases[currentPhase].duration = originalDurations[currentPhase]; // Reset the duration for the new phase
+        updateTimerDisplay();
+        updateBackgroundColor();
+    }
 
-        function nextPhase() {
-            playBeep();
-            currentPhase = phases[currentPhase].next;
-            updateTimerDisplay();
-            updateBackgroundColor();
-        }
+    function playBeep() {
+        const beepSound = document.getElementById('beepSound');
+        beepSound.play();
+    }
 
-        function playBeep() {
-            const beepSound = document.getElementById('beepSound');
-            beepSound.play();
-        }
+    function updateBackgroundColor() {
+        document.body.style.backgroundColor = phases[currentPhase].color;
+    }
 
-        function updateBackgroundColor() {
-            document.body.style.backgroundColor = phases[currentPhase].color;
-        }
+    window.onload = setupTimer;
+</script>
 
-        window.onload = setupTimer;
-    </script>
     <script>
     let wakeLock = null;
 
