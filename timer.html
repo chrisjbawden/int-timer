@@ -23,6 +23,9 @@
             display: flex;
             justify-content: center;
             width: 100%; /* Ensures the control panel takes the full width */
+            text-align: center; /* Center the text inside the control panel */
+            max-width: 800px; /* Limit the width of the control panel on larger screens */
+            margin: 0 auto; /* Center the control panel horizontally */
         }
         button {
             padding: 1vw; /* Padding scaled to the viewport width */
@@ -35,11 +38,6 @@
             border: 1px solid #ccc; /* Border to enhance button visibility */
             border-radius: 5px; /* Rounded corners for aesthetics */
             min-height: 200px;
-        }
-        @media (min-width: 800px) {
-            #controlPanel {
-                width: 80%; /* Adjust font size for wider screens */
-            }
         }
     </style>
 </head>
