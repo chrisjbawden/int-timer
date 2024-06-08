@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Launch Demo Page</title>
+<style>
+    /* Centering the button in the middle of the page */
+    body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<button onclick="launchDemo()">Launch Demo</button>
+<script>
+    function launchDemo() {
+        // Change the URL to the site you want to load
+        window.open('https://chrisjbawden.github.io/int-timer/timer.html?warmup=5m&highIntensity=2m&rest=1m', '_blank');
+    }
+</script>
+</body>
+</html>
