@@ -8,7 +8,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 0;
-            height: 90vh; /* Use the full height of the viewport */
+            height: 100vh; /* Use the full height of the viewport */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -35,21 +35,22 @@
             border: 1px solid #ccc; /* Border to enhance button visibility */
             border-radius: 5px; /* Rounded corners for aesthetics */
         }
-         /* Media Queries for Mobile Devices */
+
+        /* Media Queries for Mobile Devices */
         @media (max-width: 600px) {
             #timer {
-                font-size: 10vh; /* Larger font size for smaller screens */
+                font-size: 12vw; /* Adjust font size for smaller screens */
             }
             button {
-                font-size: 5vh; /* Larger button text for easier interaction */
-                padding: 3vh 3vh; /* Larger padding for better touch targets */
-                width: 40%;
+                font-size: 4vw; /* Larger button text for easier interaction */
+                padding: 2vw; /* Adjust padding for better touch targets */
             }
             h1 {
-                font-size: 6vh; /* Larger heading for visibility */
+                font-size: 5vw; /* Larger heading for visibility */
             }
             body {
-                padding: 5vh 0; /* Reduce vertical padding/margin to utilize space */
+                height: auto; /* Let the body height adjust automatically */
+                padding: 5vw 0; /* Reduce vertical padding/margin to utilize space */
             }
         }
     </style>
