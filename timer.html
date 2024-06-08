@@ -29,11 +29,28 @@
             margin: 5px;
             font-size: 1.5vw; /* Font size scaled to the viewport width */
             cursor: pointer;
-            width: 40%; /* Fixed width for all buttons */
+            width: 30%; /* Fixed width for all buttons */
             min-width: 120px; /* Minimum width to handle very small screens */
             background-color: #f4f4f4; /* Slight background color for buttons */
             border: 1px solid #ccc; /* Border to enhance button visibility */
             border-radius: 5px; /* Rounded corners for aesthetics */
+        }
+         /* Media Queries for Mobile Devices */
+        @media (max-width: 600px) {
+            #timer {
+                font-size: 10vh; /* Larger font size for smaller screens */
+            }
+            button {
+                font-size: 5vh; /* Larger button text for easier interaction */
+                padding: 3vh 3vh; /* Larger padding for better touch targets */
+                width: 40%;
+            }
+            h1 {
+                font-size: 6vh; /* Larger heading for visibility */
+            }
+            body {
+                padding: 5vh 0; /* Reduce vertical padding/margin to utilize space */
+            }
         }
     </style>
 </head>
