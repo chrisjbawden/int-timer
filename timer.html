@@ -119,5 +119,40 @@
 
         window.onload = setupTimer;
     </script>
+    <script>
+    let wakeLock = null;
+
+    // Function to request a wake lock
+    async function requestWakeLock() {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            wakeLock.addEventListener('release', () => {
+                console.log('Wake lock was released');
+            });
+            console.log('Wake lock is active');
+        } catch (err) {
+            console.error(`${err.name}, ${err.message}`);
+        }
+    }
+
+    // Request a wake lock when the page is loaded
+    window.addEventListener('load', requestWakeLock);
+
+    // Re-request a wake lock when the page visibility changes
+    document.addEventListener('visibilitychange', () => {
+        if (wakeLock !== null && document.visibilityState === 'visible') {
+            requestWakeLock();
+        }
+    });
+
+    // Release the wake lock when the page is unloaded
+    window.addEventListener('unload', () => {
+        if (wakeLock !== null) {
+            wakeLock.release();
+            wakeLock = null;
+        }
+    });
+</script>
+
 </body>
 </html>
