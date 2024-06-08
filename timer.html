@@ -8,15 +8,18 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 0;
-            height: 100vh; /* Use the full height of the viewport */
+            height: auto; /* Use the full height of the viewport */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             background-color: #fff; /* Default background color */
         }
+        h1 {
+            font-size: 40vw;
+        }
         #timer {
-            font-size: 15vw; /* Font size is 15% of the viewport's width */
+            font-size: 40vw; /* Font size is 15% of the viewport's width */
             margin-top: 20px;
         }
         #controlPanel {
@@ -25,33 +28,15 @@
             width: 100%; /* Ensures the control panel takes the full width */
         }
         button {
-            padding: 1vw 2vw; /* Padding scaled to the viewport width */
+            padding: 1vw; /* Padding scaled to the viewport width */
             margin: 5px;
-            font-size: 1.5vw; /* Font size scaled to the viewport width */
+            font-size: 4vw; /* Font size scaled to the viewport width */
             cursor: pointer;
             width: 30%; /* Fixed width for all buttons */
             min-width: 120px; /* Minimum width to handle very small screens */
             background-color: #f4f4f4; /* Slight background color for buttons */
             border: 1px solid #ccc; /* Border to enhance button visibility */
             border-radius: 5px; /* Rounded corners for aesthetics */
-        }
-
-        /* Media Queries for Mobile Devices */
-        @media (max-width: 600px) {
-            #timer {
-                font-size: 20vw; /* Adjust font size for smaller screens */
-            }
-            button {
-                font-size: 4vw; /* Larger button text for easier interaction */
-                padding: 2vw; /* Adjust padding for better touch targets */
-            }
-            h1 {
-                font-size: 5vw; /* Larger heading for visibility */
-            }
-            body {
-                height: auto; /* Let the body height adjust automatically */
-                padding: 1vw; /* Reduce vertical padding/margin to utilize space */
-            }
         }
     </style>
 </head>
